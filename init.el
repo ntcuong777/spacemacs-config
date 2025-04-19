@@ -234,11 +234,17 @@ This function should only modify configuration layer settings."
      sql
      typescript
 
+     ;; me
+     chrisnt
+
      ;; my machine spec
      osx
 
      ;; documentation
      dash
+
+     ;; llms
+     github-copilot
      ) ; End of dotspacemacs-configuration-layers
 
 
@@ -255,7 +261,19 @@ This function should only modify configuration layer settings."
                                        :location
                                        (recipe :fetcher github
                                                :repo "emacs-evil/evil-surround"
-                                               :commit "f273821f575ace519066fb106ee45a5b8577475f")))
+                                               :commit "f273821f575ace519066fb106ee45a5b8577475f"))
+                                      (copilot-chat
+                                       :location
+                                       (recipe :fetcher github
+                                               :repo "chep/copilot-chat.el"
+                                               :branch "master"
+                                               :files ("*.el")))
+                                      (gambit
+                                       :location
+                                       (recipe :fetcher github
+                                               :repo "gambit/gambit"
+                                               :branch "master"
+                                               :files ("misc/gambit.el"))))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -784,9 +802,18 @@ before packages are loaded."
   (setq user-config-file (file-truename (concat dotspacemacs-directory "user-config.el")))
   (load user-config-file)
 
-  ;; Clojure Layer additionalb configuration
+  ;; Clojure Layer additional configuration
   (setq clojure-config-file (file-truename (concat dotspacemacs-directory "clojure-config.el")))
   (load clojure-config-file)
+
+  (setq cl-config-file (file-truename (concat dotspacemacs-directory "common-lisp-config.el")))
+  (load cl-config-file)
+
+  (setq go-config-file (file-truename (concat dotspacemacs-directory "go-config.el")))
+  (load go-config-file)
+
+  (setq copilot-config-file (file-truename (concat dotspacemacs-directory "copilot-config.el")))
+  (load copilot-config-file)
 
   ;; Customise Theme and Mode-line
   (setq theme-config-file (file-truename (concat dotspacemacs-directory "theme-config.el")))
