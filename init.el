@@ -435,7 +435,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Fira Code"
-                               :size 14.0
+                               :size 15.0
                                :weight normal
                                :width normal)
 
@@ -603,10 +603,10 @@ It should only modify the values of Spacemacs settings."
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
    dotspacemacs-line-numbers '(:visual t
-                               :disabled-for-modes dired-mode
-                                                   doc-view-mode
-                                                   pdf-view-mode
-                               :size-limit-kb 1000)
+                                       :disabled-for-modes dired-mode
+                                       doc-view-mode
+                                       pdf-view-mode
+                                       :size-limit-kb 1000)
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -729,7 +729,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -742,7 +742,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; simplifying version control of the Spacemacs configuration file
   (setq custom-file (file-truename (concat dotspacemacs-directory "emacs-custom-settings.el")))
   (load custom-file)
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -750,7 +750,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -780,15 +780,13 @@ before packages are loaded."
   (load version-control-config-file)
 
   ;; Org-mode customisation - notes and tasks
-  ;; (setq org-config-file (file-truename (concat dotspacemacs-directory "org-config.el")))
-  ;; (load org-config-file)
+  (setq org-config-file (file-truename (concat dotspacemacs-directory "org-config.el")))
+  (load org-config-file)
 
   ;; EShell Customisation
   ;; NOTE: Practicalli uses vterm for shell by default
-  ;; (setq eshell-config-file (file-truename (concat dotspacemacs-directory "eshell-config.el")))
-  ;; (load eshell-config-file)
-
-)
+  (setq eshell-config-file (file-truename (concat dotspacemacs-directory "eshell-config.el")))
+  (load eshell-config-file))
 
 
 ;; Do not write anything past this comment. This is where Emacs will
