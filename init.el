@@ -222,6 +222,23 @@ This function should only modify configuration layer settings."
      (yaml :variables
            yaml-enable-lsp t)
 
+     ;; Personal languages
+     go
+     hy
+     python
+     ipython-notebook
+     common-lisp
+     emacs-lisp
+     graphql
+     shell-scripts
+     sql
+     typescript
+
+     ;; my machine spec
+     osx
+
+     ;; documentation
+     dash
      ) ; End of dotspacemacs-configuration-layers
 
 
@@ -633,7 +650,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server nil
+   dotspacemacs-enable-server t
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -644,7 +661,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
 
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
