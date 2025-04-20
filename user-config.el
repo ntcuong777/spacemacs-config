@@ -25,15 +25,6 @@
 (remove-hook 'helm-mode-hook 'helm-descbinds-mode)
 ;; ---------------------------------------
 
-;; clj-kondo config
-(use-package lsp-mode
-  :ensure t
-  :hook ((clojure-mode . lsp))
-  :commands lsp
-  :custom ((lsp-clojure-server-command '("clojure-lsp-server-clj-kondo")))
-  :config (dolist  (m '(clojure-mode clojurescript-mode))
-            (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
-
 
 (setq projectile-project-search-path '("~/Desktop/codes.nosync/"
                                        "~/Desktop/Projects/"

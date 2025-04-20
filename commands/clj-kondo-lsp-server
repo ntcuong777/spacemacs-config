@@ -1,0 +1,2 @@
+#!/bin/sh
+java -jar $SPACEMACSDIR/commands/jars/clj-kondo-lsp-server-standalone.jar

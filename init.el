@@ -55,7 +55,7 @@ This function should only modify configuration layer settings."
 
      ;; https://develop.spacemacs.org/layers/+lang/clojure/README.html
      (clojure :variables
-              ;; clojure-backend 'cider                 ; use cider and disable lsp
+              clojure-backend 'cider                 ; use cider and disable lsp
               clojure-enable-kaocha-runner t            ; enable Kaocha test runner
               cider-repl-display-help-banner nil        ; disable help banner
               cider-print-fn 'puget                     ; pretty printing with sorted keys / set values
@@ -228,7 +228,6 @@ This function should only modify configuration layer settings."
      python
      ipython-notebook
      common-lisp
-     emacs-lisp
      graphql
      shell-scripts
      sql

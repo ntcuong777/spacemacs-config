@@ -16,6 +16,22 @@
 ;; Do not indent single ; comment character
 (add-hook 'clojure-mode-hook (lambda () (setq-local comment-column 0)))
 
+(setq cider-repl-pop-to-buffer-on-connect 'always)
+(use-package lsp-mode
+  :ensure t
+  :hook ((clojure-mode . lsp))
+  :commands lsp
+  :custom ((lsp-clojure-server-command (file-truename (concat dotspacemacs-directory "commands/clj-kondo-lsp-server"))))
+  :config (dolist  (m '(clojure-mode clojurescript-mode))
+  (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
+
+;; (add-hook 'cider-repl-mode-hook
+;;           (lambda ()
+;;             (display-buffer-in-side-window
+;;              (get-buffer "*cider-repl*")
+;;              '((side . right)
+;;                (window-width . 0.5)))))
+
 ;; Auto-indent code automatically
 ;; https://emacsredux.com/blog/2016/02/07/auto-indent-your-code-with-aggressive-indent-mode/
 ;; (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
