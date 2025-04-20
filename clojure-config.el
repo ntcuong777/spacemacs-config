@@ -23,7 +23,7 @@
   :commands lsp
   :custom ((lsp-clojure-server-command (file-truename (concat dotspacemacs-directory "commands/clj-kondo-lsp-server"))))
   :config (dolist  (m '(clojure-mode clojurescript-mode))
-  (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
+            (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
 
 ;; (add-hook 'cider-repl-mode-hook
 ;;           (lambda ()

@@ -165,7 +165,7 @@ This function should only modify configuration layer settings."
      ;; SPC ' runs shell in a popup buffer
      (shell :variables
             shell-default-shell 'vterm
-            shell-default-term-shell "/usr/bin/zsh"
+            shell-default-term-shell "/bin/zsh"
             shell-default-height 30
             shell-default-position 'bottom)
 
@@ -225,7 +225,20 @@ This function should only modify configuration layer settings."
      ;; Personal languages
      go
      hy
-     python
+     (python :variables
+             python-backend 'lsp
+             python-lsp-server 'pyright
+             python-test-runner 'pytest
+             python-test-dispatcher 'pytest
+             python-test-pytest-executable "pytest"
+             python-test-pytest-args "-v -s --tb=short"
+             python-test-pytest-options "--maxfail=1 --disable-warnings"
+             python-pylint nil
+             python-check-command nil ;; Disable linting and PEP8 strict checks
+             python-sort-imports-on-save t
+             python-auto-format-on-save nil ;; disable auto-formatting, it is annoying to use with auto-save
+             python-format-on-save nil
+             python-fill-column 100)
      ipython-notebook
      common-lisp
      graphql
@@ -721,7 +734,8 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'all
+   ;; Chrisnt's note: auto-space-formatting is annoying, disable it
+   dotspacemacs-whitespace-cleanup nil
 
    ;; If non-nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -810,6 +824,10 @@ before packages are loaded."
 
   (setq go-config-file (file-truename (concat dotspacemacs-directory "go-config.el")))
   (load go-config-file)
+
+  ;; Python Layer additional configuration
+  (setq python-config-file (file-truename (concat dotspacemacs-directory "python-config.el")))
+  (load python-config-file)
 
   (setq copilot-config-file (file-truename (concat dotspacemacs-directory "copilot-config.el")))
   (load copilot-config-file)
