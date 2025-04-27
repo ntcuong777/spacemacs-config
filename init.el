@@ -53,20 +53,22 @@ This function should only modify configuration layer settings."
                       ;; auto-completion-complete-with-key-sequence "fd"
                       )
 
-     ;; https://develop.spacemacs.org/layers/+lang/clojure/README.html
-     (clojure :variables
-              clojure-backend 'cider                 ; use cider and disable lsp
-              clojure-enable-kaocha-runner t            ; enable Kaocha test runner
-              cider-repl-display-help-banner nil        ; disable help banner
-              cider-print-fn 'puget                     ; pretty printing with sorted keys / set values
-              clojure-indent-style 'align-arguments
-              clojure-align-forms-automatically t
-              clojure-toplevel-inside-comment-form t ; clashes with LSP
-              cider-result-overlay-position 'at-point   ; results shown right after expression
-              cider-overlays-use-font-lock t
-              cider-repl-buffer-size-limit 100          ; limit lines shown in REPL buffer
-              nrepl-use-ssh-fallback-for-remote-hosts t ; connect via ssh to remote hosts
-              )
+     ;; Quite successful in reviving Lisp. But JVM is too big and clunky.
+     ;; Syntax is understandable but too verbose compared to Common Lisp or Scheme.
+     ;; ;; https://develop.spacemacs.org/layers/+lang/clojure/README.html
+     ;; (clojure :variables
+     ;;          clojure-backend 'cider                 ; use cider and disable lsp
+     ;;          clojure-enable-kaocha-runner t            ; enable Kaocha test runner
+     ;;          cider-repl-display-help-banner nil        ; disable help banner
+     ;;          cider-print-fn 'puget                     ; pretty printing with sorted keys / set values
+     ;;          clojure-indent-style 'align-arguments
+     ;;          clojure-align-forms-automatically t
+     ;;          clojure-toplevel-inside-comment-form t ; clashes with LSP
+     ;;          cider-result-overlay-position 'at-point   ; results shown right after expression
+     ;;          cider-overlays-use-font-lock t
+     ;;          cider-repl-buffer-size-limit 100          ; limit lines shown in REPL buffer
+     ;;          nrepl-use-ssh-fallback-for-remote-hosts t ; connect via ssh to remote hosts
+     ;;          )
 
      ;; Nyan cat indicating relative position in current buffer
      ;; :variables colors-enable-nyan-cat-progress-bar (display-graphic-p)
@@ -224,7 +226,7 @@ This function should only modify configuration layer settings."
 
      ;; Personal languages
      go
-     hy
+     ;; hy ;; may we meet again with static type checks
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyright
@@ -240,11 +242,12 @@ This function should only modify configuration layer settings."
              python-format-on-save nil
              python-fill-column 100)
      ipython-notebook
-     common-lisp
+     ;; common-lisp  ;; Too good for the world to enjoy, born too early before its legacy is fully realized
      graphql
      shell-scripts
      sql
      typescript
+     ocaml  ;; my personal language to do everything from BE to FE (with Melange)
 
      ;; me
      chrisnt
@@ -260,7 +263,7 @@ This function should only modify configuration layer settings."
      ) ; End of dotspacemacs-configuration-layers
 
 
-   ;; List of additional packages that will be installed without being wrapped
+   ;; LIST OF additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
    ;; loaded using load/require/use-package in the user-config section below in
    ;; this file). If you need some configuration for these packages, then
@@ -285,7 +288,8 @@ This function should only modify configuration layer settings."
                                        (recipe :fetcher github
                                                :repo "gambit/gambit"
                                                :branch "master"
-                                               :files ("misc/gambit.el"))))
+                                               :files ("misc/gambit.el")))
+                                      helm-descbinds)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -680,7 +684,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server t
+   dotspacemacs-enable-server nil ; t
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -691,7 +695,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server t
+   dotspacemacs-persistent-server nil ; t
 
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
@@ -768,7 +772,11 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-home-shorten-agenda-source nil
 
    ;; If non-nil then byte-compile some of Spacemacs files.
-   dotspacemacs-byte-compile nil))
+   dotspacemacs-byte-compile nil)
+
+  ;; Chrisnt notes: Ignore importing GOROOT, let the `go' cli decide automatically. This env is causing problems with Go projects
+  (setq spacemacs-ignored-environment-variables
+        (append spacemacs-ignored-environment-variables '("GOROOT" "ANTHROPIC_API_KEY" "OPENAI_API_KEY"))))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -790,6 +798,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; simplifying version control of the Spacemacs configuration file
   (setq custom-file (file-truename (concat dotspacemacs-directory "emacs-custom-settings.el")))
   (load custom-file)
+
+  ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
+  ;; (setq ocaml-user-setup-file (file-truename (concat dotspacemacs-directory "opam-user-setup.el")))
+  ;; (require 'opam-user-setup ocaml-user-setup-file)
+  ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
   )
 
 
@@ -815,12 +828,16 @@ before packages are loaded."
   (setq user-config-file (file-truename (concat dotspacemacs-directory "user-config.el")))
   (load user-config-file)
 
-  ;; Clojure Layer additional configuration
-  (setq clojure-config-file (file-truename (concat dotspacemacs-directory "clojure-config.el")))
-  (load clojure-config-file)
+  ;; ;; Clojure Layer additional configuration
+  ;; (setq clojure-config-file (file-truename (concat dotspacemacs-directory "clojure-config.el")))
+  ;; (load clojure-config-file)
 
-  (setq cl-config-file (file-truename (concat dotspacemacs-directory "common-lisp-config.el")))
-  (load cl-config-file)
+  ;; Too good for the world to appreciate. Born too early of the right time.
+  ;; (setq cl-config-file (file-truename (concat dotspacemacs-directory "common-lisp-config.el")))
+  ;; (load cl-config-file)
+
+  (setq ocaml-config-file (file-truename (concat dotspacemacs-directory "ocaml-config.el")))
+  (load ocaml-config-file)
 
   (setq go-config-file (file-truename (concat dotspacemacs-directory "go-config.el")))
   (load go-config-file)
