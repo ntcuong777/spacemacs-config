@@ -247,7 +247,9 @@ This function should only modify configuration layer settings."
      shell-scripts
      sql
      typescript
-     ocaml  ;; my personal language to do everything from BE to FE (with Melange)
+     ;; (ocaml :variables
+     ;;        ocaml-backend 'eglot)  ;; my personal language to do everything from BE to FE (with Melange)
+     fsharp
 
      ;; me
      chrisnt
@@ -271,7 +273,8 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(clojure-essential-ref
+   dotspacemacs-additional-packages '(
+                                      ;; clojure-essential-ref
                                       (evil-surround
                                        :location
                                        (recipe :fetcher github
@@ -283,12 +286,12 @@ This function should only modify configuration layer settings."
                                                :repo "chep/copilot-chat.el"
                                                :branch "master"
                                                :files ("*.el")))
-                                      (gambit
-                                       :location
-                                       (recipe :fetcher github
-                                               :repo "gambit/gambit"
-                                               :branch "master"
-                                               :files ("misc/gambit.el")))
+                                      ;; (gambit
+                                      ;;  :location
+                                      ;;  (recipe :fetcher github
+                                      ;;          :repo "gambit/gambit"
+                                      ;;          :branch "master"
+                                      ;;          :files ("misc/gambit.el")))
                                       helm-descbinds)
 
    ;; A list of packages that cannot be updated.
@@ -799,10 +802,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq custom-file (file-truename (concat dotspacemacs-directory "emacs-custom-settings.el")))
   (load custom-file)
 
-  ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
+  ;; ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
   ;; (setq ocaml-user-setup-file (file-truename (concat dotspacemacs-directory "opam-user-setup.el")))
   ;; (require 'opam-user-setup ocaml-user-setup-file)
-  ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
+  ;; ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
   )
 
 
@@ -836,8 +839,8 @@ before packages are loaded."
   ;; (setq cl-config-file (file-truename (concat dotspacemacs-directory "common-lisp-config.el")))
   ;; (load cl-config-file)
 
-  (setq ocaml-config-file (file-truename (concat dotspacemacs-directory "ocaml-config.el")))
-  (load ocaml-config-file)
+  ;; (setq ocaml-config-file (file-truename (concat dotspacemacs-directory "ocaml-config.el")))
+  ;; (load ocaml-config-file)
 
   (setq go-config-file (file-truename (concat dotspacemacs-directory "go-config.el")))
   (load go-config-file)
